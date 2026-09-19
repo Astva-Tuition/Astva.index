@@ -2465,7 +2465,7 @@ document.querySelectorAll('.up').forEach((el, i) => {
 // little on its way out, the way a real shower looks from the ground
 const cv = document.getElementById('sky'), cx = cv.getContext('2d');
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-let sky = [], W, H, dpr, radiant = { x: 0, y: 0 };
+let sky = [], W, H, dpr, radiant = { x: 0, y: 0 }, bend = .0003;
 function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
 
 const INK = {
@@ -2509,22 +2509,39 @@ function along(m, r){
   return [radiant.x + Math.cos(th) * r, radiant.y + Math.sin(th) * r];
 }
 
+// a tally of where meteors have actually been seen, decaying so it tracks the
+// recent sky rather than the whole session
+const cover = new Array(7).fill(0);
+function aimX(){
+  if (Math.random() < .3) return rnd(-W * .05, W * 1.05);   // keep it from looking dealt
+  let lo = 0;
+  for (let i = 1; i < cover.length; i++) if (cover[i] < cover[lo]) lo = i;
+  return (lo + Math.random()) / cover.length * W;
+}
+
 function newMeteor(first){
   const spec = kindRoll();
   // aim at somewhere in view, then start short of it and travel outward
-  const tx = rnd(-W * .1, W * 1.1), ty = rnd(-H * .05, H * 1.05);
+  // aim at whichever strip of sky has seen the least. which side runs thin depends
+  // on the radiant and the bend together, so it is measured rather than predicted
+  const tx = aimX(), ty = rnd(-H * .05, H * 1.05);
   const dx = tx - radiant.x, dy = ty - radiant.y;
   const th = Math.atan2(dy, dx);
   const reach = Math.hypot(dx, dy);
-  const r0 = reach * rnd(.35, .75);
+  // light up just before the point it is aimed at, so the burn actually happens
+  // on screen. scaling the start by `reach` meant that on a narrow phone most of
+  // them burnt out long before they arrived
+  const r0 = Math.max(20, reach - rnd(90, 420));
   const fire = Math.random() < .12;                      // the odd bright one
   return {
     spec, th, r0,
     col: pick(palette()[spec.pool]),
-    curve: rnd(-.00042, .00042),                         // the gentle bend
+    curve: bend * rnd(.82, 1.18),                        // the shower\u2019s own bend
     rHead: r0,
     // how far it gets before there is nothing left to burn
-    rEnd: r0 + rnd(180, 620) * (fire ? 1.4 : 1),
+    // always burn past the point it was aimed at, whatever the geometry —
+    // otherwise meteors aimed near the radiant die before they reach the frame
+    rEnd: Math.max(r0 + 240, reach + rnd(70, 330)) * (fire ? 1.06 : 1),
     spd: rnd(9, 17) * (spec.k === 'tape' ? .8 : 1),
     w: rnd(spec.w[0], spec.w[1]) * (fire ? 1.5 : 1),
     a: rnd(spec.a[0], spec.a[1]) * (fire ? 1.45 : 1),
@@ -2534,7 +2551,7 @@ function newMeteor(first){
     t: 0,
     hold: rnd(5, 14),                                    // the beat before it lets go
     spent: false,
-    wait: first ? rnd(0, 260) : rnd(40, 300),            // long quiet stretches
+    wait: first ? rnd(0, 90) : rnd(6, 80),               // short pauses, so the sky keeps busy
     seed: Math.random() * 1000
   };
 }
@@ -2559,11 +2576,15 @@ function step(m){
 }
 
 function skyReset(){
+  // the whole shower bends the same way, by roughly the same amount
+  bend = (Math.random() < .5 ? -1 : 1) * rnd(.00024, .00040);
   // the radiant sits off one of the top corners
-  radiant = {
-    x: Math.random() < .5 ? rnd(-W * .35, W * .18) : rnd(W * .82, W * 1.35),
-    y: rnd(-H * .9, -H * .25)
-  };
+  // well outside the frame: the further away the radiant, the tighter the fan.
+  // measured off the diagonal so a narrow phone gets the same spread as a desktop
+  const D = Math.hypot(W, H);
+  radiant = Math.random() < .5
+    ? { x: -D * rnd(.85, 1.35), y: -D * rnd(.95, 1.5) }
+    : { x: W + D * rnd(.85, 1.35), y: -D * rnd(.95, 1.5) };
 }
 
 function size(){
@@ -2572,7 +2593,7 @@ function size(){
   cv.width = W * dpr; cv.height = H * dpr;
   cx.setTransform(dpr, 0, 0, dpr, 0, 0);
   skyReset();
-  const n = Math.round(Math.min(16, W * H / 76000));
+  const n = Math.round(Math.min(46, W * H / 24000));
   sky = Array.from({ length: n }, () => newMeteor(true));
 }
 
@@ -2631,6 +2652,7 @@ function stroke(m){
 
 function draw(){
   cx.clearRect(0, 0, W, H);
+  for (let i = 0; i < cover.length; i++) cover[i] *= .995;   // remember only lately
   for (const m of sky) {
     if (calm) {
       if (!m.trail.length) { for (let i = 0; i < 16; i++) m.trail.push({ r: m.r0 + i * 14, born: i, ink: true }); m.t = 16; }
@@ -2640,6 +2662,9 @@ function draw(){
     const alive = step(m);
     stroke(m);
     const [hx, hy] = along(m, m.rHead);
+    if (hx >= 0 && hx < W && hy >= 0 && hy < H) {
+      cover[Math.min(cover.length - 1, Math.floor(hx / W * cover.length))] += 1;
+    }
     if (!alive || hy > H + 140 || hx < -W * .4 || hx > W * 1.4) {
       Object.assign(m, newMeteor(false));
     }
