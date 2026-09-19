@@ -516,10 +516,11 @@ section{padding:96px 22px;max-width:1080px;margin:0 auto;position:relative;z-ind
   column-gap:14px;align-items:baseline;
 }
 .pr-head{
-  padding:0 0 6px;font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;
+  padding:0 0 6px;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;
   text-transform:uppercase;color:var(--faint);text-align:right;
 }
 .has-pair .pr-v,.pr-head span{min-width:52px;text-align:right}
+.pr-head span{white-space:nowrap}
 .pr-v.na{font-family:var(--mono);font-size:13px;color:var(--line);transform:none}
 .pr-n{font-family:var(--hand);font-size:16px;color:var(--paper);line-height:1.3}
 /* the price column is lettered like a market price card */
@@ -603,7 +604,7 @@ section{padding:96px 22px;max-width:1080px;margin:0 auto;position:relative;z-ind
   .pr-row{padding:5px 0 6px}
   .pr-n{font-size:14px}
   .pr-v{font-size:17px}
-  .pr-head{font-size:8px}
+  .pr-head{font-size:7.5px;letter-spacing:.06em}
   .has-pair .pr-v,.pr-head span{min-width:44px}
   .has-pair .pr-row,.pr-head{column-gap:10px}
   .row-ink{bottom:-1px;height:5px}
@@ -1065,13 +1066,13 @@ footer .fc{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var
   <div class="price-grid">
       <div class="price-box up has-pair">
         <h3>小學</h3>
-        <div class="pr-head"><span></span><span>二人同行</span><span>單人</span></div>
+        <div class="pr-head"><span></span><span>二人同行 · 第二位</span><span>單人</span></div>
         <div class="pr-row"><span class="pr-n">功課輔導班</span><span class="pr-v na">—</span><span class="pr-v tbc">待定</span></div>
         <div class="pr-row"><span class="pr-n">全科</span><span class="pr-v tbc">待定</span><span class="pr-v tbc">待定</span></div>
       </div>
       <div class="price-box up has-pair">
         <h3>初中</h3>
-        <div class="pr-head"><span></span><span>二人同行</span><span>單人</span></div>
+        <div class="pr-head"><span></span><span>二人同行 · 第二位</span><span>單人</span></div>
         <div class="pr-row"><span class="pr-n">功課輔導班</span><span class="pr-v na">—</span><span class="pr-v tbc">待定</span></div>
         <div class="pr-row"><span class="pr-n">全科</span><span class="pr-v tbc">待定</span><span class="pr-v tbc">待定</span></div>
         <div class="pr-row"><span class="pr-n">主科</span><span class="pr-v tbc">待定</span><span class="pr-v tbc">待定</span></div>
@@ -1079,14 +1080,14 @@ footer .fc{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var
       </div>
       <div class="price-box up has-pair">
         <h3>高中<small class="lv-sub">（中三）</small></h3>
-        <div class="pr-head"><span></span><span>二人同行</span><span>單人</span></div>
+        <div class="pr-head"><span></span><span>二人同行 · 第二位</span><span>單人</span></div>
         <div class="pr-row"><span class="pr-n">中英</span><span class="pr-v na">—</span><span class="pr-v tbc">待定</span></div>
         <div class="pr-row"><span class="pr-n">數學</span><span class="pr-v na">—</span><span class="pr-v tbc">待定</span></div>
         <div class="pr-row"><span class="pr-n">專科</span><span class="pr-v na">—</span><span class="pr-v tbc">待定</span></div>
         <div class="pr-row"><span class="pr-n">操卷</span><span class="pr-v na">—</span><span class="pr-v tbc">待定</span></div>
       </div>
   </div>
-  <p class="price-note up">收費以每小時計。二人同行價只適用於小學及初中，功課輔導班與高中不設二人同行。落實後會逐項更新。</p>
+  <p class="price-note up">收費以每小時計。二人同行即第二位以八折計，表中「二人同行」欄為第二位嘅價錢，只適用於小學及初中；功課輔導班與高中不設二人同行。落實後會逐項更新。</p>
 </section>
 
 <section id="modes">
@@ -1287,7 +1288,8 @@ const I18N = {
   "小學價錢": "Primary rates",
   "單人": "Single",
   "二人同行": "Two together",
-  "收費以每小時計。二人同行價只適用於小學及初中，功課輔導班與高中不設二人同行。落實後會逐項更新。": "Rates are per hour. The two-together rate applies to primary and junior only — not to the homework class or to senior forms. Each line will be filled in as it is confirmed.",
+  "二人同行 · 第二位": "2nd student",
+  "收費以每小時計。二人同行即第二位以八折計，表中「二人同行」欄為第二位嘅價錢，只適用於小學及初中；功課輔導班與高中不設二人同行。落實後會逐項更新。": "Rates are per hour. Two together means the second student pays 20% less, and the \u201Ctwo together\u201D column is that second student\u2019s rate. It applies to primary and junior only — not to the homework class or to senior forms. Each line will be filled in as it is confirmed.",
   "初中價錢": "Junior rates",
   "高中價錢": "Senior rates",
   "功課輔導班價錢": "Homework class rates",
@@ -1304,7 +1306,6 @@ const I18N = {
   "操卷": "Past-paper drilling",
   "中三": "Form 3",
   "（中三）": "(incl. Form 3)",
-  "收費以每小時計。二人同行價只適用於小學及初中，功課輔導班與高中不設二人同行。落實後會逐項更新。": "Rates are per hour and depend on level, subject and group size. Each line will be filled in as it is confirmed.",
   "下一節": "Next",
   "小學 · 初中 · 高中": "Primary · Junior · Senior",
   "由在讀大學生組成的上門教學團隊。一對一、一對二上門授課，配合功課輔導、考試衝刺與升學指導。": "A home-tuition team of current university students. One-to-one and one-to-two lessons at your home, with homework support, exam sprints and pathway advice.",
@@ -1400,7 +1401,8 @@ const I18N = {
   "小學價錢": "小学价钱",
   "單人": "单人",
   "二人同行": "二人同行",
-  "收費以每小時計。二人同行價只適用於小學及初中，功課輔導班與高中不設二人同行。落實後會逐項更新。": "收费以每小时计。二人同行价只适用于小学及初中，功课辅导班与高中不设二人同行。落实后会逐项更新。",
+  "二人同行 · 第二位": "二人同行 · 第二位",
+  "收費以每小時計。二人同行即第二位以八折計，表中「二人同行」欄為第二位嘅價錢，只適用於小學及初中；功課輔導班與高中不設二人同行。落實後會逐項更新。": "收费以每小时计。二人同行即第二位以八折计，表中「二人同行」栏为第二位的价钱，只适用于小学及初中；功课辅导班与高中不设二人同行。落实后会逐项更新。",
   "初中價錢": "初中价钱",
   "高中價錢": "高中价钱",
   "功課輔導班價錢": "功课辅导班价钱",
@@ -1417,7 +1419,6 @@ const I18N = {
   "操卷": "操卷",
   "中三": "中三",
   "（中三）": "（中三）",
-  "收費以每小時計。二人同行價只適用於小學及初中，功課輔導班與高中不設二人同行。落實後會逐項更新。": "收费以每小时计，按年级、科目与上课人数而定。落实后会逐项更新。",
   "下一節": "下一节",
   "小學 · 初中 · 高中": "小学 · 初中 · 高中",
   "由在讀大學生組成的上門教學團隊。一對一、一對二上門授課，配合功課輔導、考試衝刺與升學指導。": "由在读大学生组成的上门教学团队。一对一、一对二上门授课，配合功课辅导、考试冲刺与升学指导。",
@@ -2459,54 +2460,195 @@ document.querySelectorAll('.up').forEach((el, i) => {
   io.observe(el);
 });
 
-// constellation
+// background: a stationery meteor shower. what makes it read as a shower rather
+// than rain is that every streak radiates from one point off screen and bends a
+// little on its way out, the way a real shower looks from the ground
 const cv = document.getElementById('sky'), cx = cv.getContext('2d');
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-let stars = [], W, H, dpr, LINK = 150;
+let sky = [], W, H, dpr, radiant = { x: 0, y: 0 };
 function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
-let C = {};
-function readTheme(){
-  C = { star: css('--star'), starA: +css('--star-a'), linkA: +css('--link-a'),
-        gold: css('--gold-rgb'), goldA: +css('--gold-link-a') };
+
+const INK = {
+  dark: {
+    pencil: ['#AEB4BE'],
+    crayon: ['#EFD083', '#DE9595', '#8CC2DD', '#9CD9AA', '#CDA8E2'],
+    colour: ['#8EB8E8', '#E8A0A0', '#9CE1B5', '#EEC77C', '#C4ABE8'],
+    white:  ['#F8F7F2']
+  },
+  light: {
+    pencil: ['#585E69'],
+    crayon: ['#B77E1E', '#A74540', '#2F6F88', '#3E7D4E', '#7B4A98'],
+    colour: ['#306293', '#994242', '#317D4E', '#A16D15', '#6C4691'],
+    white:  ['#B9B2A3']
+  }
+};
+// each medium leaves a different kind of mark
+const KIND = [
+  { k: 'pencil', w: [0.9, 1.5], a: [.20, .30], skip: .04, wob: .30, pool: 'pencil', odds: .26 },
+  { k: 'crayon', w: [2.0, 3.2], a: [.18, .27], skip: .12, wob: .55, pool: 'crayon', odds: .24 },
+  { k: 'colour', w: [1.4, 2.3], a: [.22, .32], skip: .06, wob: .38, pool: 'colour', odds: .26 },
+  { k: 'tape',   w: [2.8, 4.2], a: [.18, .26], skip: 0,   wob: .18, pool: 'white',  odds: .12 },
+  { k: 'fluid',  w: [1.6, 2.6], a: [.24, .34], skip: .05, wob: .45, pool: 'white',  odds: .12 }
+];
+const pick = a => a[Math.floor(Math.random() * a.length)];
+function isLight(){
+  return document.documentElement.getAttribute('data-theme') === 'light';
 }
-function size() {
+function palette(){ return INK[isLight() ? 'light' : 'dark']; }
+// marks sit lighter against a pale page, so they are given more weight there
+function amp(){ return isLight() ? 1.45 : 1; }
+function kindRoll(){
+  let r = Math.random(), acc = 0;
+  for (const k of KIND) { acc += k.odds; if (r <= acc) return k; }
+  return KIND[0];
+}
+
+// where a point sits on a meteor's arc, measured as a distance out from the radiant
+function along(m, r){
+  const th = m.th + m.curve * (r - m.r0);
+  return [radiant.x + Math.cos(th) * r, radiant.y + Math.sin(th) * r];
+}
+
+function newMeteor(first){
+  const spec = kindRoll();
+  // aim at somewhere in view, then start short of it and travel outward
+  const tx = rnd(-W * .1, W * 1.1), ty = rnd(-H * .05, H * 1.05);
+  const dx = tx - radiant.x, dy = ty - radiant.y;
+  const th = Math.atan2(dy, dx);
+  const reach = Math.hypot(dx, dy);
+  const r0 = reach * rnd(.35, .75);
+  const fire = Math.random() < .12;                      // the odd bright one
+  return {
+    spec, th, r0,
+    col: pick(palette()[spec.pool]),
+    curve: rnd(-.00042, .00042),                         // the gentle bend
+    rHead: r0,
+    // how far it gets before there is nothing left to burn
+    rEnd: r0 + rnd(180, 620) * (fire ? 1.4 : 1),
+    spd: rnd(9, 17) * (spec.k === 'tape' ? .8 : 1),
+    w: rnd(spec.w[0], spec.w[1]) * (fire ? 1.5 : 1),
+    a: rnd(spec.a[0], spec.a[1]) * (fire ? 1.45 : 1),
+    fire,
+    trail: [],                                           // what the head has left behind
+    maxAge: rnd(20, 32),                                 // frames a piece of trail lasts
+    t: 0,
+    hold: rnd(5, 14),                                    // the beat before it lets go
+    spent: false,
+    wait: first ? rnd(0, 260) : rnd(40, 300),            // long quiet stretches
+    seed: Math.random() * 1000
+  };
+}
+
+// the trail is a record of where the head has been, and every piece of it fades on
+// its own clock. so the back dissolves continuously while the head runs on, and
+// once the head burns out the whole thing empties from the back
+function step(m){
+  m.t++;
+  if (!m.spent) {
+    m.rHead += m.spd;
+    // each piece remembers whether the medium actually took there
+    m.trail.push({ r: m.rHead, born: m.t, ink: Math.random() >= m.spec.skip });
+    if (m.rHead >= m.rEnd) m.spent = true;
+  } else if (m.hold > 0) {
+    m.hold--;                                            // it hangs there a moment
+  }
+  const cut = m.t - m.maxAge;
+  while (m.trail.length && m.trail[0].born < cut) m.trail.shift();
+  // a meteor that has only just lit has one point; it is not dead
+  return !m.spent || m.trail.length > 1;
+}
+
+function skyReset(){
+  // the radiant sits off one of the top corners
+  radiant = {
+    x: Math.random() < .5 ? rnd(-W * .35, W * .18) : rnd(W * .82, W * 1.35),
+    y: rnd(-H * .9, -H * .25)
+  };
+}
+
+function size(){
   dpr = Math.min(devicePixelRatio || 1, 2);
   W = innerWidth; H = innerHeight;
   cv.width = W * dpr; cv.height = H * dpr;
   cx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  LINK = W < 700 ? 130 : 155;
-  const n = Math.round(Math.min(150, W * H / 8200));
-  stars = Array.from({ length: n }, () => ({
-    x: Math.random() * W, y: Math.random() * H,
-    r: Math.random() * 1.3 + .4,
-    vx: (Math.random() - .5) * .12, vy: (Math.random() - .5) * .12,
-    g: Math.random() < .16
-  }));
+  skyReset();
+  const n = Math.round(Math.min(16, W * H / 76000));
+  sky = Array.from({ length: n }, () => newMeteor(true));
 }
-function draw() {
+
+// the trail, drawn along the arc in whatever medium this one is
+function stroke(m){
+  const base = m.a * amp();
+  const pts = m.trail;
+  if (pts.length < 2) return;
+  cx.lineCap = 'round';
+  cx.lineJoin = 'round';
+
+  if (m.spec.k === 'tape') {                             // correction tape: a band
+    cx.globalAlpha = base * .9;
+    cx.fillStyle = m.col;
+    cx.beginPath();
+    const edge = (i, side) => {
+      const p = pts[i];
+      const f = Math.max(0, 1 - (m.t - p.born) / m.maxAge);
+      const half = m.w / 2 * Math.pow(f, 1.1) + .25;
+      const [px, py] = along(m, p.r), [qx, qy] = along(m, p.r + .8);
+      const ux = qy - py, uy = -(qx - px), l = Math.hypot(ux, uy) || 1;
+      const e = Math.sin(m.seed + i) * .25;
+      cx.lineTo(px + side * ux / l * (half + e), py + side * uy / l * (half + e));
+    };
+    for (let i = 0; i < pts.length; i++) edge(i, 1);
+    for (let i = pts.length - 1; i >= 0; i--) edge(i, -1);
+    cx.closePath(); cx.fill();
+    cx.globalAlpha = 1;
+    return;
+  }
+
+  cx.strokeStyle = m.col;
+  for (let i = 1; i < pts.length; i++) {
+    const p = pts[i];
+    if (!p.ink) continue;                                // the tooth of the paper
+    const f = Math.max(0, 1 - (m.t - p.born) / m.maxAge);   // this piece's own life
+    const e = Math.pow(f, m.spec.k === 'fluid' ? .9 : 1.15);
+    if (e < .01) continue;
+    const [ax, ay] = along(m, pts[i - 1].r), [bx, by] = along(m, p.r);
+    const o0 = Math.sin(m.seed + i * .5) * m.spec.wob;
+    cx.globalAlpha = base * e;
+    cx.lineWidth = m.w * Math.pow(f, 1.25);
+    cx.beginPath();
+    cx.moveTo(ax + o0, ay + o0 * .3);
+    cx.lineTo(bx + o0, by + o0 * .3);
+    cx.stroke();
+  }
+  if (!m.spent) {                                        // the burning head itself
+    const [hx, hy] = along(m, m.rHead);
+    cx.globalAlpha = base * (m.fire ? 1.1 : .85);
+    cx.fillStyle = m.col;
+    cx.beginPath(); cx.arc(hx, hy, m.w * (m.fire ? .85 : .62), 0, 7); cx.fill();
+  }
+  cx.globalAlpha = 1;
+}
+
+function draw(){
   cx.clearRect(0, 0, W, H);
-  for (let i = 0; i < stars.length; i++) {
-    const a = stars[i];
-    for (let j = i + 1; j < stars.length; j++) {
-      const b = stars[j], dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
-      if (d < LINK) {
-        const f = 1 - d / LINK;
-        cx.strokeStyle = (a.g || b.g)
-          ? 'rgba(' + C.gold + ',' + (C.goldA * f) + ')'
-          : 'rgba(' + C.star + ',' + (C.linkA * f) + ')';
-        cx.lineWidth = .7;
-        cx.beginPath(); cx.moveTo(a.x, a.y); cx.lineTo(b.x, b.y); cx.stroke();
-      }
+  for (const m of sky) {
+    if (calm) {
+      if (!m.trail.length) { for (let i = 0; i < 16; i++) m.trail.push({ r: m.r0 + i * 14, born: i, ink: true }); m.t = 16; }
+      stroke(m); continue;
     }
-    cx.fillStyle = a.g ? 'rgba(' + C.gold + ',.9)' : 'rgba(' + C.star + ',' + C.starA + ')';
-    cx.beginPath(); cx.arc(a.x, a.y, a.r, 0, 7); cx.fill();
-    if (!calm) {
-      a.x += a.vx; a.y += a.vy;
-      if (a.x < 0 || a.x > W) a.vx *= -1;
-      if (a.y < 0 || a.y > H) a.vy *= -1;
+    if (m.wait > 0) { m.wait--; continue; }              // the empty sky between them
+    const alive = step(m);
+    stroke(m);
+    const [hx, hy] = along(m, m.rHead);
+    if (!alive || hy > H + 140 || hx < -W * .4 || hx > W * 1.4) {
+      Object.assign(m, newMeteor(false));
     }
   }
   if (!calm) requestAnimationFrame(draw);
+}
+
+function readTheme(){
+  for (const m of sky) m.col = pick(palette()[m.spec.pool]);
 }
 
 // theme
