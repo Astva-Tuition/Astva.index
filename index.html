@@ -2465,7 +2465,7 @@ document.querySelectorAll('.up').forEach((el, i) => {
 // little on its way out, the way a real shower looks from the ground
 const cv = document.getElementById('sky'), cx = cv.getContext('2d');
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-let sky = [], W, H, dpr, radiant = { x: 0, y: 0 }, bend = .0003;
+let sky = [], W, H, dpr, radiant = { x: 0, y: 0 }, bend = .0003, pace = 1;
 function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
 
 const INK = {
@@ -2542,7 +2542,7 @@ function newMeteor(first){
     // always burn past the point it was aimed at, whatever the geometry —
     // otherwise meteors aimed near the radiant die before they reach the frame
     rEnd: Math.max(r0 + 240, reach + rnd(70, 330)) * (fire ? 1.06 : 1),
-    spd: rnd(9, 17) * (spec.k === 'tape' ? .8 : 1),
+    spd: rnd(9, 17) * pace * (spec.k === 'tape' ? .8 : 1),
     w: rnd(spec.w[0], spec.w[1]) * (fire ? 1.5 : 1),
     a: rnd(spec.a[0], spec.a[1]) * (fire ? 1.45 : 1),
     fire,
@@ -2590,6 +2590,9 @@ function skyReset(){
 function size(){
   dpr = Math.min(devicePixelRatio || 1, 2);
   W = innerWidth; H = innerHeight;
+  // speed is in pixels, so the same number tears across a big screen and crawls on
+  // a small one. scale it to the viewport so both read at the same pace
+  pace = Math.max(.62, Math.min(1.1, 1050 / Math.hypot(W, H)));
   cv.width = W * dpr; cv.height = H * dpr;
   cx.setTransform(dpr, 0, 0, dpr, 0, 0);
   skyReset();
