@@ -13,6 +13,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Astva">
 <meta name="application-name" content="Astva">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9532393940443766"
+        crossorigin="anonymous"></script>
 <meta name="theme-color" content="#0A0A0B" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#F6F4EE" media="(prefers-color-scheme: light)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -753,6 +755,8 @@ footer>.panel-in{
   display:none;position:relative;isolation:isolate;
   background:var(--veil);align-items:center;justify-content:center;
 }
+.ad-slot .adsbygoogle{position:absolute;inset:0}
+.ad-slot.filled .ad-tag{display:none}
 .ad-slot .ad-tag{
   font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--faint);
   border:1px dashed var(--line);padding:3px 7px;border-radius:2px;
@@ -1269,7 +1273,9 @@ footer .fc{font-family:var(--brush2);font-size:15px;letter-spacing:.03em;color:v
 
 <aside class="ad-slot ad-rail" aria-label="廣告">
   <span class="ad-tag" data-noi18n>AD</span>
-  <!-- paste the ad code here (160 x 600) -->
+  <ins class="adsbygoogle" style="display:block;width:100%;height:100%"
+       data-ad-client="ca-pub-9532393940443766" data-ad-slot=""
+       data-ad-format="vertical" data-full-width-responsive="true"></ins>
 </aside>
 <div class="deck" id="deck">
 <header class="hero" id="top">
@@ -1401,7 +1407,9 @@ footer .fc{font-family:var(--brush2);font-size:15px;letter-spacing:.03em;color:v
 
   <aside class="ad-slot ad-strip" aria-label="廣告">
     <span class="ad-tag" data-noi18n>AD</span>
-    <!-- paste the ad code here (728 x 90 desktop / 320 x 100 phone) -->
+    <ins class="adsbygoogle" style="display:block;width:100%;height:100%"
+         data-ad-client="ca-pub-9532393940443766" data-ad-slot=""
+         data-ad-format="horizontal" data-full-width-responsive="true"></ins>
   </aside>
 </section>
 
@@ -1938,7 +1946,9 @@ footer .fc{font-family:var(--brush2);font-size:15px;letter-spacing:.03em;color:v
   </div>
   <aside class="ad-slot ad-strip" aria-label="廣告">
     <span class="ad-tag" data-noi18n>AD</span>
-    <!-- paste the ad code here (728 x 90 desktop / 320 x 100 phone) -->
+    <ins class="adsbygoogle" style="display:block;width:100%;height:100%"
+         data-ad-client="ca-pub-9532393940443766" data-ad-slot=""
+         data-ad-format="horizontal" data-full-width-responsive="true"></ins>
   </aside>
 </section>
 
@@ -1958,7 +1968,9 @@ footer .fc{font-family:var(--brush2);font-size:15px;letter-spacing:.03em;color:v
   </div>
   <aside class="ad-slot ad-strip" aria-label="廣告">
     <span class="ad-tag" data-noi18n>AD</span>
-    <!-- paste the ad code here (728 x 90 desktop / 320 x 100 phone) -->
+    <ins class="adsbygoogle" style="display:block;width:100%;height:100%"
+         data-ad-client="ca-pub-9532393940443766" data-ad-slot=""
+         data-ad-format="horizontal" data-full-width-responsive="true"></ins>
   </aside>
 </section>
 
@@ -1975,7 +1987,9 @@ footer .fc{font-family:var(--brush2);font-size:15px;letter-spacing:.03em;color:v
   </div>
   <aside class="ad-slot ad-strip" aria-label="廣告">
     <span class="ad-tag" data-noi18n>AD</span>
-    <!-- paste the ad code here (728 x 90) -->
+    <ins class="adsbygoogle" style="display:block;width:100%;height:100%"
+         data-ad-client="ca-pub-9532393940443766" data-ad-slot=""
+         data-ad-format="horizontal" data-full-width-responsive="true"></ins>
   </aside>
 </section>
 
@@ -3757,6 +3771,14 @@ matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
 
 readTheme(); size(); draw();
 addEventListener('resize', () => { size(); if (calm) draw(); });
+
+// ads: a slot goes live once its AdSense slot id is filled in; until then it
+// just shows the quiet placeholder
+document.querySelectorAll('.ad-slot .adsbygoogle').forEach(ins => {
+  if (!ins.dataset.adSlot) { ins.remove(); return; }
+  ins.closest('.ad-slot').classList.add('filled');
+  try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+});
 </script>
 </body>
 </html>
