@@ -737,6 +737,39 @@ footer>.panel-in{
 }
 
 /* ---------- team ---------- */
+/* the empty right half of the hero carries our own notice */
+.promo{
+  position:absolute;right:0;top:50%;transform:translateY(-50%);
+  width:min(300px,26vw);padding:22px 22px 20px;z-index:2;
+  background:var(--veil);isolation:isolate;display:none;
+}
+.promo-k{font-family:var(--brush);font-size:17px;color:var(--gold);margin-bottom:8px}
+.promo-t{font-family:var(--hand);font-size:16px;line-height:1.55;color:var(--mist)}
+.promo-cta{margin-top:14px;font-size:16px;padding:9px 16px}
+@media(min-width:1180px){.promo{display:block}}
+
+/* slots for outside advertising: empty frames until the code is pasted in */
+.ad-slot{
+  display:none;position:relative;isolation:isolate;
+  background:var(--veil);align-items:center;justify-content:center;
+}
+.ad-slot .ad-tag{
+  font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--faint);
+  border:1px dashed var(--line);padding:3px 7px;border-radius:2px;
+}
+.ad-rail{
+  position:fixed;left:24px;top:50%;transform:translateY(-50%);
+  width:160px;height:600px;z-index:4;
+}
+@media(min-width:1460px){.ad-rail{display:flex}}
+.ad-strip{
+  display:flex;width:100%;max-width:728px;height:90px;margin:34px auto 0;
+}
+@media(max-width:860px){
+  /* on a phone the panels have room under the last card */
+  .ad-strip{max-width:100%;height:100px;margin-top:22px}
+}
+
 /* Instagram, drawn in crayon like everything else */
 .ig-mark{display:inline-block;vertical-align:-.22em;overflow:visible}
 .ig-mark .ig-l{fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
@@ -1232,6 +1265,10 @@ footer .fc{font-family:var(--brush2);font-size:15px;letter-spacing:.03em;color:v
 
 <nav class="rail" id="rail" aria-label="章節導覽"></nav>
 
+<aside class="ad-slot ad-rail" aria-label="廣告">
+  <span class="ad-tag" data-noi18n>AD</span>
+  <!-- paste the ad code here (160 x 600) -->
+</aside>
 <div class="deck" id="deck">
 <header class="hero" id="top">
   <div class="hero-inner">
@@ -1256,6 +1293,11 @@ footer .fc{font-family:var(--brush2);font-size:15px;letter-spacing:.03em;color:v
     <a class="ig-handle hero-ig" href="https://instagram.com/astva.tuition" target="_blank" rel="noopener"><svg class="ig-mark crayon" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><defs><linearGradient id="igA" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FEDA75"/><stop offset=".3" stop-color="#F58529"/><stop offset=".6" stop-color="#DD2A7B"/><stop offset=".85" stop-color="#8134AF"/><stop offset="1" stop-color="#515BD4"/></linearGradient></defs><g stroke="url(#igA)"><path class="ig-l" d="M7 3.6 H17 C19 3.6 20.4 5 20.4 7 V17 C20.4 19 19 20.4 17 20.4 H7 C5 20.4 3.6 19 3.6 17 V7 C3.6 5 5 3.6 7 3.6 Z"/><path class="ig-l" d="M12 8.3 C14 8.3 15.7 10 15.7 12 C15.7 14 14 15.7 12 15.7 C10 15.7 8.3 14 8.3 12 C8.3 10 10 8.3 12 8.3 Z"/><path class="ig-l" d="M17 6.7 C17.5 6.7 17.8 7.1 17.8 7.5 C17.8 8 17.5 8.3 17 8.3 C16.6 8.3 16.2 8 16.2 7.5 C16.2 7.1 16.6 6.7 17 6.7 Z"/></g></svg><span class="ig-name" data-noi18n>Astva.</span><span class="ig-tu" data-noi18n>tuition</span></a>
 
   </div>
+    <aside class="promo up" aria-label="最新消息">
+      <div class="promo-k">最新消息</div>
+      <div class="promo-t">呢度可以放優惠、招生或者招募導師嘅消息。</div>
+      <a href="https://wa.me/85257866331" class="btn btn-ghost promo-cta"><i class="wa-w" data-noi18n>WhatsApp</i> 查詢</a>
+    </aside>
   <div class="hero-meta">
     <div class="scroll-cue"><i></i><span>向下瀏覽</span></div>
   </div>
@@ -1355,6 +1397,10 @@ footer .fc{font-family:var(--brush2);font-size:15px;letter-spacing:.03em;color:v
     </div>
   </div>
 
+  <aside class="ad-slot ad-strip" aria-label="廣告">
+    <span class="ad-tag" data-noi18n>AD</span>
+    <!-- paste the ad code here (728 x 90 desktop / 320 x 100 phone) -->
+  </aside>
 </section>
 
 <section id="team">
@@ -1904,6 +1950,10 @@ footer .fc{font-family:var(--brush2);font-size:15px;letter-spacing:.03em;color:v
     <div><span class="i">05</span><p>年齡相近，學生較願意開口問問題。</p></div>
     <div><span class="i">06</span><p>定期向家長交代進度與需要跟進的地方。</p></div>
   </div>
+  <aside class="ad-slot ad-strip" aria-label="廣告">
+    <span class="ad-tag" data-noi18n>AD</span>
+    <!-- paste the ad code here (728 x 90 desktop / 320 x 100 phone) -->
+  </aside>
 </section>
 
 <section id="contact">
@@ -1917,6 +1967,10 @@ footer .fc{font-family:var(--brush2);font-size:15px;letter-spacing:.03em;color:v
     </div>
     
   </div>
+  <aside class="ad-slot ad-strip" aria-label="廣告">
+    <span class="ad-tag" data-noi18n>AD</span>
+    <!-- paste the ad code here (728 x 90) -->
+  </aside>
 </section>
 
 <footer id="footer">
@@ -1983,6 +2037,8 @@ const I18N = {
   "小學 · 初中 · 高中": "Primary · Junior · Senior",
   "由在讀大學生組成的上門教學團隊。一對一、一對二上門授課，配合功課輔導、考試衝刺與升學指導。": "A home-tuition team of current university students. One-to-one and one-to-two lessons at your home, with homework support, exam sprints and pathway advice.",
   "查詢": "us",
+  "最新消息": "What\u2019s on",
+  "呢度可以放優惠、招生或者招募導師嘅消息。": "Space for an offer, an intake notice or a call for tutors.",
   "小學功課輔導": "Primary homework support",
   "關注學生情緒狀態": "Keeps an eye on how a student is coping",
   "有耐性，重複講解到明白": "Patient — explains it again until it lands",
@@ -2116,6 +2172,8 @@ const I18N = {
   "小學 · 初中 · 高中": "小学 · 初中 · 高中",
   "由在讀大學生組成的上門教學團隊。一對一、一對二上門授課，配合功課輔導、考試衝刺與升學指導。": "由在读大学生组成的上门教学团队。一对一、一对二上门授课，配合功课辅导、考试冲刺与升学指导。",
   "查詢": "查询",
+  "最新消息": "最新消息",
+  "呢度可以放優惠、招生或者招募導師嘅消息。": "这里可以放优惠、招生或者招募导师的消息。",
   "小學功課輔導": "小学功课辅导",
   "關注學生情緒狀態": "关注学生情绪状态",
   "有耐性，重複講解到明白": "有耐性，重复讲解到明白",
@@ -2782,7 +2840,7 @@ function inkFrame(el){
 }
 
 const inked = [...document.querySelectorAll('.btn, .nav-cta, .theme-btn')];
-const framed = [...document.querySelectorAll('.consult, .cta, .price-box, .ci, .why > div, .card-role, #team .card, #modes .mode')];
+const framed = [...document.querySelectorAll('.consult, .cta, .price-box, .ci, .why > div, .card-role, .promo, .ad-slot, #team .card, #modes .mode')];
 // the rules inside a rates box are the same wandering line as its border
 function inkRow(el){
   const w = Math.max(30, Math.round(el.getBoundingClientRect().width));
