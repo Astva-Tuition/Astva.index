@@ -752,10 +752,13 @@ footer>.panel-in{
 
 /* slots for outside advertising: empty frames until the code is pasted in */
 .ad-slot{
-  display:none;position:relative;isolation:isolate;
-  background:var(--veil);align-items:center;justify-content:center;
+  display:none;position:relative;isolation:isolate;overflow:hidden;
+  background:none;align-items:center;justify-content:center;
 }
-.ad-slot .adsbygoogle{display:block;width:100%;height:100%}
+.ad-slot .adsbygoogle{display:block!important;width:100%!important;height:100%!important}
+/* nothing served yet: fall back to the quiet frame */
+.ad-slot.empty .adsbygoogle{display:none!important}
+.ad-slot.empty .ad-tag{display:inline-block}
 .ad-slot.filled .ad-tag{display:none}
 .ad-slot .ad-tag{
   font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--faint);
@@ -1275,7 +1278,7 @@ footer .fc{font-family:var(--brush2);font-size:15px;letter-spacing:.03em;color:v
   <span class="ad-tag" data-noi18n>AD</span>
   <ins class="adsbygoogle" style="display:block;width:100%;height:100%"
        data-ad-client="ca-pub-9532393940443766" data-ad-slot="9972060992"
-       data-ad-format="auto" data-full-width-responsive="true"></ins>
+       data-ad-format="vertical" data-full-width-responsive="false"></ins>
 </aside>
 <div class="deck" id="deck">
 <header class="hero" id="top">
@@ -1409,7 +1412,7 @@ footer .fc{font-family:var(--brush2);font-size:15px;letter-spacing:.03em;color:v
     <span class="ad-tag" data-noi18n>AD</span>
     <ins class="adsbygoogle" style="display:block;width:100%;height:100%"
          data-ad-client="ca-pub-9532393940443766" data-ad-slot="6120445898"
-         data-ad-format="auto" data-full-width-responsive="true"></ins>
+         data-ad-format="horizontal" data-full-width-responsive="false"></ins>
   </aside>
 </section>
 
@@ -1948,7 +1951,7 @@ footer .fc{font-family:var(--brush2);font-size:15px;letter-spacing:.03em;color:v
     <span class="ad-tag" data-noi18n>AD</span>
     <ins class="adsbygoogle" style="display:block;width:100%;height:100%"
          data-ad-client="ca-pub-9532393940443766" data-ad-slot="3701242674"
-         data-ad-format="auto" data-full-width-responsive="true"></ins>
+         data-ad-format="horizontal" data-full-width-responsive="false"></ins>
   </aside>
 </section>
 
@@ -1970,7 +1973,7 @@ footer .fc{font-family:var(--brush2);font-size:15px;letter-spacing:.03em;color:v
     <span class="ad-tag" data-noi18n>AD</span>
     <ins class="adsbygoogle" style="display:block;width:100%;height:100%"
          data-ad-client="ca-pub-9532393940443766" data-ad-slot="2388161004"
-         data-ad-format="auto" data-full-width-responsive="true"></ins>
+         data-ad-format="horizontal" data-full-width-responsive="false"></ins>
   </aside>
 </section>
 
@@ -1989,7 +1992,7 @@ footer .fc{font-family:var(--brush2);font-size:15px;letter-spacing:.03em;color:v
     <span class="ad-tag" data-noi18n>AD</span>
     <ins class="adsbygoogle" style="display:block;width:100%;height:100%"
          data-ad-client="ca-pub-9532393940443766" data-ad-slot="6135834329"
-         data-ad-format="auto" data-full-width-responsive="true"></ins>
+         data-ad-format="horizontal" data-full-width-responsive="false"></ins>
   </aside>
 </section>
 
@@ -3775,8 +3778,18 @@ addEventListener('resize', () => { size(); if (calm) draw(); });
 // ads: a slot goes live once its AdSense slot id is filled in; until then it
 // just shows the quiet placeholder
 document.querySelectorAll('.ad-slot .adsbygoogle').forEach(ins => {
-  if (!ins.dataset.adSlot) { ins.remove(); return; }
-  ins.closest('.ad-slot').classList.add('filled');
+  const slot = ins.closest('.ad-slot');
+  if (!ins.dataset.adSlot) { ins.remove(); slot.classList.add('empty'); return; }
+  slot.classList.add('filled');
+  // AdSense marks the unit "unfilled" when it has nothing to show; put the quiet
+  // frame back rather than leaving a blank block
+  const check = () => {
+    const st = ins.getAttribute('data-ad-status');
+    slot.classList.toggle('empty', st === 'unfilled');
+    slot.classList.toggle('filled', st === 'filled');
+  };
+  new MutationObserver(check).observe(ins, { attributes: true, attributeFilter: ['data-ad-status'] });
+  setTimeout(() => { if (!ins.getAttribute('data-ad-status')) slot.classList.add('empty'); }, 4000);
   try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
 });
 </script>
