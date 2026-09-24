@@ -758,10 +758,12 @@ footer>.panel-in{
   border:1px dashed var(--line);padding:3px 7px;border-radius:2px;
 }
 .ad-rail{
-  position:fixed;left:24px;top:50%;transform:translateY(-50%);
-  width:160px;height:600px;z-index:4;
+  position:fixed;left:20px;top:50%;transform:translateY(-50%);
+  width:120px;height:600px;z-index:4;
 }
-@media(min-width:1460px){.ad-rail{display:flex}}
+/* the page body is 1080 wide, so the rail needs 1360 before it stops crowding it */
+@media(min-width:1360px){.ad-rail{display:flex;width:120px}}
+@media(min-width:1500px){.ad-rail{width:160px;left:28px}}
 .ad-strip{
   display:flex;width:100%;max-width:728px;height:90px;margin:34px auto 0;
 }
@@ -1934,6 +1936,10 @@ footer .fc{font-family:var(--brush2);font-size:15px;letter-spacing:.03em;color:v
       <div class="ci"><div class="n">F</div><div class="t">文憑試未達標應對</div><div class="d">重讀、副學位、其他銜接途徑的比較。</div></div>
     </div>
   </div>
+  <aside class="ad-slot ad-strip" aria-label="廣告">
+    <span class="ad-tag" data-noi18n>AD</span>
+    <!-- paste the ad code here (728 x 90 desktop / 320 x 100 phone) -->
+  </aside>
 </section>
 
 <section id="why">
